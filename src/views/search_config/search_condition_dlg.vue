@@ -118,7 +118,7 @@ export default {
     preStep() {
       this.$emit('preStep')
     },
-    nextStep(wrapValueList) {
+    nextStep() {
       this.$emit('nextStep')
     }
   }
