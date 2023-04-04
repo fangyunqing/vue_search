@@ -1,7 +1,7 @@
 <template>
   <div>
     <card-edit
-      ref="cardEdit"
+      v-model="value"
       pre-step-visible
       next-step-visible
       order-visible
@@ -114,17 +114,11 @@ export default {
       ]
     }
   },
-  created() {
-    this.$refs.cardEdit.initValue(this.value)
-  },
   methods: {
     preStep() {
       this.$emit('preStep')
     },
     nextStep(wrapValueList) {
-      wrapValueList
-        .this.conditions.splice(0, this.conditions.length)
-      this.value.forEach(v => this.conditions.push(v.name))
       this.$emit('nextStep')
     }
   }
