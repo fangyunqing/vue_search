@@ -40,7 +40,8 @@
               <common-editor
                 v-model.trim="itemData.item.expression"
                 language="sql"
-                :hint-options="hitOptions"
+                :hint-options="hintOptions"
+                @input="input"
               />
             </el-form-item>
           </el-col>
@@ -136,10 +137,15 @@ export default {
       /**
        * Hit
        */
-      hitOptions: {
+      allResult: []
+    }
+  },
+  computed: {
+    hintOptions: function() {
+      return {
         tables: {
           condition: this.conditions,
-          result: this.results
+          result: this.allResult
         }
       }
     }
@@ -180,12 +186,33 @@ export default {
         try {
           const ast = parser.parse(expression)
           const fields = []
-
           ast.value.selectItems.value.forEach(item => {
             const field_name = (item.alias || item.value).split('.').reverse()[0]
             fields.push(field_name)
           })
           return fields
+          // eslint-disable-next-line no-empty
+        } catch (e) {
+        }
+      }
+    },
+    input(code) {
+      const parser = require('js-sql-parser')
+      if (code.length > 0) {
+        const from_location = code.search(/from\b/i)
+        let expression = code
+        if (from_location > -1) {
+          expression = code.substring(0, from_location)
+        }
+        try {
+          const ast = parser.parse(expression)
+          ast.value.selectItems.value.forEach(item => {
+            const field_name = (item.alias || item.value).split('.').reverse()[0]
+            this.allResult.push(field_name)
+          })
+          const newAllResult = this._.uniq(this.allResult)
+          this.allResult.splice(0, this.allResult.length)
+          newAllResult.forEach(a => this.allResult.push(a))
           // eslint-disable-next-line no-empty
         } catch (e) {
         }

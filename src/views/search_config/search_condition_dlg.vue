@@ -41,6 +41,16 @@
             </el-form-item>
           </el-col>
         </el-row>
+        <el-row>
+          <el-col :span="20">
+            <el-form-item label="下拉框值" prop="list_values">
+              <common-editor
+                v-model.trim="itemData.item.list_values"
+                language="sql"
+              />
+            </el-form-item>
+          </el-col>
+        </el-row>
       </template>
     </card-edit>
   </div>
@@ -50,10 +60,11 @@
 
 import CardEdit from '@/views/search_config/components/card_edit'
 import { specificationRegExp } from '@/utils/validate'
+import CommonEditor from '@/components/CommonEditor'
 
 export default {
   name: 'SearchConditionDlg',
-  components: { CardEdit },
+  components: { CardEdit, CommonEditor },
   props: {
     value: {
       type: Array,
