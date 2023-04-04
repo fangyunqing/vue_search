@@ -65,6 +65,10 @@
 export default {
   name: 'CardEdit',
   props: {
+    value: {
+      type: Array,
+      default: () => []
+    },
     rules: {
       type: Object,
       default: () => {}
@@ -103,24 +107,20 @@ export default {
     }
   },
   watch: {
-    wrapValueList: {
+    value: {
       handler(newVal, oldVal) {
-        this.$emit('change', newVal, oldVal)
-      }
-    }
-  },
-  methods: {
-    initValue(value) {
-      value.forEach(item => {
-        this.wrapValueList.push(
-          {
+        this.wrapValueList = this.value.map(item => {
+          return {
             item: item,
             key: this._.uniqueId(),
             visible: false
           }
-        )
-      })
-    },
+        })
+      },
+      immediate: true
+    }
+  },
+  methods: {
     cardDelete(wrapValue) {
       this.$confirm('此操作将永久删除该选项, 是否继续?', '提示', {
         confirmButtonText: '确定',
@@ -176,16 +176,18 @@ export default {
       }
     },
     preStep() {
-      this.$emit('preStep', this.wrapValueList)
+      this.$emit('preStep')
     },
     async nextStep() {
       if (await this.validate()) {
-        this.$emit('nextStep', this.wrapValueList)
+        this.syncValue()
+        this.$emit('nextStep')
       }
     },
     async finish() {
       if (await this.validate()) {
-        this.$emit('finish', this.wrapValueList)
+        this.syncValue()
+        this.$emit('finish')
       }
     },
     async validate() {
@@ -207,6 +209,10 @@ export default {
         }
       }
       return ret.length === this.wrapValueList.length
+    },
+    syncValue() {
+      this.value.splice(0, this.value.length)
+      this.wrapValueList.forEach(wv => this.value.push(wv.item))
     },
     orderItem() {
       this.wrapValueList.sort((a, b) => {
