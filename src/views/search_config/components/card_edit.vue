@@ -108,7 +108,7 @@ export default {
   },
   watch: {
     value: {
-      handler(newVal, oldVal) {
+      handler() {
         this.wrapValueList = this.value.map(item => {
           return {
             item: item,
