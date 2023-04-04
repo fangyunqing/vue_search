@@ -36,7 +36,18 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    before: require('./mock/mock-server.js')
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:5000/',
+        // 如果是https接口，需要配置这个参数为true
+        secure: false,
+        // 开启代理：在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
+    }
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
@@ -121,4 +132,5 @@ module.exports = {
         }
       )
   }
+
 }

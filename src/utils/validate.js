@@ -85,3 +85,9 @@ export function isArray(arg) {
   }
   return Array.isArray(arg)
 }
+
+/**
+ * 非法字符 ((?![非法字符]).)*
+ * @type {RegExp}
+ */
+export const specificationRegExp = /^((?!&).)*$/

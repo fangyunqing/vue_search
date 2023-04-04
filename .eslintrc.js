@@ -52,7 +52,6 @@ module.exports = {
       'before': true,
       'after': true
     }],
-    'handle-callback-err': [2, '^(err|error)$'],
     'indent': [2, 2, {
       'SwitchCase': 1
     }],
@@ -123,7 +122,6 @@ module.exports = {
     'no-proto': 2,
     'no-redeclare': 2,
     'no-regex-spaces': 2,
-    'no-return-assign': [2, 'except-parens'],
     'no-self-assign': 2,
     'no-self-compare': 2,
     'no-sequences': 2,

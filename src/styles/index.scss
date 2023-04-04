@@ -189,3 +189,14 @@ aside {
 .multiselect--active {
   z-index: 1000 !important;
 }
+
+/* 按钮右靠齐*/
+.operate-nav {
+  margin-bottom: 10px;
+  direction: rtl
+}
+
+.el-scrollbar__wrap
+{
+  overflow-x: hidden;
+}

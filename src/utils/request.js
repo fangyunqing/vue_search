@@ -3,6 +3,9 @@ import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
 
+const tipUrlList = [/\/datasource\/disable\/\d+/, /\/datasource\/usable\/\d+/,
+  '/datasource/modify',
+  '/datasource/add', '/search/add', '/search/modify']
 // create an axios instance
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
@@ -45,8 +48,8 @@ service.interceptors.response.use(
   response => {
     const res = response.data
 
-    // if the custom code is not 20000, it is judged as an error.
-    if (res.code !== 20000) {
+    // if the custom code is not 200, it is judged as an error.
+    if (res.code !== 200) {
       Message({
         message: res.message || 'Error',
         type: 'error',
@@ -68,6 +71,25 @@ service.interceptors.response.use(
       }
       return Promise.reject(new Error(res.message || 'Error'))
     } else {
+      let api_location = response.request.responseURL.indexOf('api')
+      if (api_location > -1) {
+        api_location += 3
+        let url = ''
+        const question_location = response.request.responseURL.indexOf('?')
+        if (question_location > -1) {
+          url = response.request.responseURL.substring(api_location, question_location)
+        } else {
+          url = response.request.responseURL.substring(api_location)
+        }
+
+        if (tipUrlList.some(tipUrl => url.search(tipUrl) > -1)) {
+          Message({
+            message: res.message || 'OK',
+            type: 'success',
+            duration: 5 * 1000
+          })
+        }
+      }
       return res
     }
   },

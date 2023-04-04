@@ -42,7 +42,7 @@ export const constantRoutes = [
   {
     path: '/redirect',
     component: Layout,
-    hidden: true,
+    hidden: false,
     children: [
       {
         path: '/redirect/:path(.*)',
@@ -80,6 +80,30 @@ export const constantRoutes = [
         component: () => import('@/views/dashboard/index'),
         name: 'Dashboard',
         meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
+      }
+    ]
+  },
+  {
+    path: '/database',
+    component: Layout,
+    children: [
+      {
+        path: 'config',
+        component: () => import('@/views/database_config/index'),
+        name: 'DatabaseConfig',
+        meta: { title: '数据库配置', icon: 'database', noCache: true }
+      }
+    ]
+  },
+  {
+    path: '/search',
+    component: Layout,
+    children: [
+      {
+        path: 'config',
+        component: () => import('@/views/search_config/index'),
+        name: 'SearchConfig',
+        meta: { title: '查询配置', icon: 'search_service', noCache: true }
       }
     ]
   },
