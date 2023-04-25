@@ -73,7 +73,7 @@ export default {
         showCursorWhenSelecting: true, // 文本选中时显示光标
         smartIndent: true, // 智能缩进
         completeSingle: false, // 当匹配只有一项的时候是否自动补全
-        extraKeys: { 'Tab': 'autocomplete' },
+        extraKeys: { 'Ctrl': 'autocomplete' },
         hintOptions: this.hintOptions
       }
     }

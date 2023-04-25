@@ -14,6 +14,7 @@ const name = defaultSettings.title || 'vue Element Admin' // page title
 // You can change the port by the following method:
 // port = 9527 npm run dev OR npm run dev --port = 9527
 const port = process.env.port || process.env.npm_config_port || 9527 // dev port
+const host = process.env.host || '127.0.0.1'
 
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
@@ -31,6 +32,7 @@ module.exports = {
   productionSourceMap: false,
   devServer: {
     port: port,
+    host: host,
     open: true,
     overlay: {
       warnings: false,

@@ -1,7 +1,13 @@
 <template>
   <div>
     <div>
-      <el-tag v-for="item in conditions" :key="item" style="margin-right: 2px">{{ item }}</el-tag>
+      <el-tag
+        v-for="item in conditions"
+        :key="item"
+        style="margin-right: 2px;margin-bottom: 2px"
+      >
+        {{ item }}
+      </el-tag>
     </div>
 
     <el-divider />

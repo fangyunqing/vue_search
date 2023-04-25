@@ -2,7 +2,14 @@
   <div>
 
     <div>
-      <el-tag v-for="item in results" :key="item" style="margin-right: 2px">{{ item }}</el-tag>
+      <el-tag
+        v-for="item in results"
+        :key="item"
+        style="margin-right: 2px;margin-bottom: 2px"
+        :type="useField.indexOf(item) > -1 ? 'info' : 'primary'"
+      >
+        {{ item }}
+      </el-tag>
     </div>
 
     <el-divider />
@@ -16,6 +23,7 @@
       :reset-empty="resetEmpty()"
       @preStep="preStep"
       @finish="finish"
+      @change="valueChange"
     >
       <template slot="content" slot-scope="itemData">
         <el-row>
@@ -111,9 +119,6 @@ export default {
           { pattern: specificationRegExp, message: '请输入合法字符', trigger: 'change' },
           { required: true, message: '请输入展示名', trigger: 'blur' }
         ],
-        rule: [
-          { required: true, message: '请输入py函数', trigger: 'blur' }
-        ],
         order: [
           { pattern: specificationRegExp, message: '请输入合法字符', trigger: 'change' },
           { required: true, message: '请输入排序号', trigger: 'blur' }
@@ -146,7 +151,11 @@ export default {
           key: 'date',
           value: '日期'
         }
-      ]
+      ],
+      /**
+       * 使用过的字段
+       */
+      useField: []
     }
   },
   methods: {
@@ -160,6 +169,12 @@ export default {
       return {
         visible: '1'
       }
+    },
+    valueChange(wrapValueList) {
+      this.useField.splice(0, this.useField.length)
+      wrapValueList.forEach(wv => {
+        wv.item.result_fields.split(',').forEach(f => this.useField.push(f))
+      })
     }
   }
 }

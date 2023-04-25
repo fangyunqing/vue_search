@@ -47,12 +47,12 @@
       <el-table-column label="展示名" prop="display" header-align="center" align="center" min-width="80" show-overflow-tooltip />
       <el-table-column label="页条数" prop="page_size" header-align="center" align="center" min-width="80" show-overflow-tooltip />
       <el-table-column label="top" prop="top" header-align="center" align="center" min-width="80" show-overflow-tooltip />
-      <el-table-column label="redis缓存时间" prop="redis_cache_time" header-align="center" align="center" min-width="80" show-overflow-tooltip />
+      <el-table-column label="redis缓存时间(秒)" prop="redis_cache_time" header-align="center" align="center" min-width="80" show-overflow-tooltip />
       <el-table-column label="csv阀值" prop="want_csv" header-align="center" align="center" min-width="80" show-overflow-tooltip />
       <el-table-column label="导出文件大小" prop="export_single_size" header-align="center" align="center" min-width="80" show-overflow-tooltip />
       <el-table-column label="缓存页数" prop="pages" header-align="center" align="center" min-width="80" show-overflow-tooltip />
       <el-table-column label="导出文件类型" prop="export_file_type" header-align="center" align="center" min-width="90" show-overflow-tooltip />
-      <el-table-column label="文件缓存时间" prop="export_file_cache_time" header-align="center" align="center" min-width="80" show-overflow-tooltip />
+      <el-table-column label="文件缓存时间(分钟)" prop="export_file_cache_time" header-align="center" align="center" min-width="80" show-overflow-tooltip />
       <el-table-column label="可用" prop="usable" header-align="center" align="center" min-width="80" show-overflow-tooltip>
         <template slot-scope="rowData">
           <el-tag v-if="rowData.row.usable === '1'">可用</el-tag>

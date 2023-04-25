@@ -69,6 +69,11 @@
             />
           </el-form-item>
         </el-col>
+        <el-col :span="10">
+          <el-form-item label="序号" prop="order">
+            <el-input v-model.number="row.order" clearable type="number" />
+          </el-form-item>
+        </el-col>
       </el-row>
       <el-row>
         <el-col :span="20">
@@ -167,6 +172,10 @@ export default {
         ],
         remark: [
           { pattern: specificationRegExp, message: '请输入合法字符', trigger: 'change' }
+        ],
+        order: [
+          { pattern: specificationRegExp, message: '请输入合法字符', trigger: 'change' },
+          { required: true, message: '请输入序号', trigger: 'blur' }
         ]
       }
     }

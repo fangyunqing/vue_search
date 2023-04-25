@@ -31,6 +31,7 @@
           <span>******</span>
         </template>
       </el-table-column>
+      <el-table-column label="序号" prop="order" header-align="center" align="center" min-width="80" show-overflow-tooltip />
       <el-table-column label="备注" prop="remark" header-align="center" align="center" min-width="80" show-overflow-tooltip />
       <el-table-column label="可用" prop="usable" header-align="center" align="center" min-width="80" show-overflow-tooltip>
         <template slot-scope="rowData">

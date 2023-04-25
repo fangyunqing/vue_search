@@ -118,6 +118,13 @@ export default {
         })
       },
       immediate: true
+    },
+    wrapValueList: {
+      handler() {
+        this.$emit('change', this.wrapValueList)
+      },
+      immediate: true,
+      deep: true
     }
   },
   methods: {

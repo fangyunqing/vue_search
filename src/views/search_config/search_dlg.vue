@@ -27,7 +27,7 @@
       </el-row>
       <el-row>
         <el-col :span="10">
-          <el-form-item label="redis缓存时间" prop="redis_cache_time">
+          <el-form-item label="redis缓存时间(秒)" prop="redis_cache_time">
             <el-input v-model.number="value.redis_cache_time" clearable type="number" />
           </el-form-item>
         </el-col>
@@ -63,7 +63,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="10">
-          <el-form-item label="文件缓存时间" prop="export_file_cache_time">
+          <el-form-item label="文件缓存时间(分钟)" prop="export_file_cache_time">
             <el-input v-model.number="value.export_file_cache_time" clearable type="number" />
           </el-form-item>
         </el-col>
