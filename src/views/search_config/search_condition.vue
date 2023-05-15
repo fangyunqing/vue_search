@@ -14,6 +14,7 @@
       <el-table-column label="名称" prop="name" header-align="center" align="center" min-width="80" show-overflow-tooltip />
       <el-table-column label="展示名" prop="display" header-align="center" align="center" min-width="80" show-overflow-tooltip />
       <el-table-column label="数据类型" prop="datatype" header-align="center" align="center" min-width="80" show-overflow-tooltip />
+      <el-table-column label="条件类型" prop="condition_type" header-align="center" align="center" min-width="80" show-overflow-tooltip />
       <el-table-column label="时间类型" prop="date_default" header-align="center" align="center" min-width="80" show-overflow-tooltip />
       <el-table-column label="模糊查询" prop="datatype" header-align="center" align="center" min-width="80" show-overflow-tooltip>
         <template slot-scope="rowData">

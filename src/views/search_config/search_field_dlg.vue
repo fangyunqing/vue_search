@@ -40,16 +40,33 @@
         </el-row>
         <el-row>
           <el-col :span="20">
+            <el-form-item label="依赖字段" prop="result_fields">
+              <el-select
+                v-model.trim="itemData.item.result_fields"
+                multiple
+                filterable
+                allow-create
+                default-first-option
+                placeholder="请选择"
+                style="width:100%"
+              >
+                <el-option
+                  v-for="dt in results"
+                  :key="dt"
+                  :label="dt"
+                  :value="dt"
+                />
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="20">
             <el-form-item label="py函数" prop="rule">
               <common-editor
                 v-model.trim="itemData.item.rule"
                 language="python"
               />
-            </el-form-item>
-          </el-col>
-          <el-col :span="10">
-            <el-form-item label="依赖字段" prop="result_fields">
-              <el-input v-model.trim="itemData.item.result_fields" clearable />
             </el-form-item>
           </el-col>
         </el-row>
@@ -69,19 +86,6 @@
           <el-col :span="10">
             <el-form-item label="排序号" prop="order">
               <el-input v-model.number="itemData.item.order" type="number" clearable />
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="10">
-            <el-form-item label="可见" prop="visible">
-              <el-switch
-                v-model.trim="itemData.item.visible"
-                active-value="1"
-                inactive-value="0"
-                active-color="#13ce66"
-                inactive-color="#ff4949"
-              />
             </el-form-item>
           </el-col>
         </el-row>
@@ -150,6 +154,10 @@ export default {
         {
           key: 'date',
           value: '日期'
+        },
+        {
+          key: 'datetime',
+          value: '日期时间'
         }
       ],
       /**
@@ -173,7 +181,7 @@ export default {
     valueChange(wrapValueList) {
       this.useField.splice(0, this.useField.length)
       wrapValueList.forEach(wv => {
-        wv.item.result_fields.split(',').forEach(f => this.useField.push(f))
+        wv.item.result_fields.forEach(f => this.useField.push(f))
       })
     }
   }

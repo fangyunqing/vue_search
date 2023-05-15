@@ -64,6 +64,20 @@
               />
             </el-form-item>
           </el-col>
+          <el-col :span="10">
+            <el-form-item label="条件类型" prop="datatype">
+              <el-select v-model.trim="itemData.item.condition_type" placeholder="请选择">
+                <el-option
+                  v-for="dt in conditionTypeMap"
+                  :key="dt.key"
+                  :label="dt.value"
+                  :value="dt.key"
+                />
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
           <el-col v-show="itemData.item.datatype === 'date'" :span="10">
             <el-form-item label="日期默认值" prop="date_default">
               <el-select v-model.trim="itemData.item.date_default" placeholder="请选择">
@@ -118,6 +132,10 @@ export default {
         datatype: [
           { pattern: specificationRegExp, message: '请输入合法字符', trigger: 'change' },
           { required: true, message: '请选择数据类型', trigger: 'blur' }
+        ],
+        condition_type: [
+          { pattern: specificationRegExp, message: '请输入合法字符', trigger: 'change' },
+          { required: true, message: '请选择条件类型', trigger: 'blur' }
         ],
         order: [
           { pattern: specificationRegExp, message: '请输入合法字符', trigger: 'change' },
@@ -193,6 +211,19 @@ export default {
           key: 'year',
           value: '一年前'
         }
+      ],
+      /**
+       * 条件类型
+       */
+      conditionTypeMap: [
+        {
+          key: 'normal',
+          value: '普通'
+        },
+        {
+          key: 'time',
+          value: '时间'
+        }
       ]
     }
   },
@@ -207,7 +238,8 @@ export default {
     },
     resetEmpty() {
       return {
-        fuzzy_query: '0'
+        fuzzy_query: '0',
+        condition_type: 'normal'
       }
     }
   }

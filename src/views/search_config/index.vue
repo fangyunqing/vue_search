@@ -48,7 +48,7 @@
       <el-table-column label="页条数" prop="page_size" header-align="center" align="center" min-width="80" show-overflow-tooltip />
       <el-table-column label="top" prop="top" header-align="center" align="center" min-width="80" show-overflow-tooltip />
       <el-table-column label="redis缓存时间(秒)" prop="redis_cache_time" header-align="center" align="center" min-width="80" show-overflow-tooltip />
-      <el-table-column label="csv阀值" prop="want_csv" header-align="center" align="center" min-width="80" show-overflow-tooltip />
+      <el-table-column label="文件缓存阀值" prop="file_cache_limit" header-align="center" align="center" min-width="80" show-overflow-tooltip />
       <el-table-column label="导出文件大小" prop="export_single_size" header-align="center" align="center" min-width="80" show-overflow-tooltip />
       <el-table-column label="缓存页数" prop="pages" header-align="center" align="center" min-width="80" show-overflow-tooltip />
       <el-table-column label="导出文件类型" prop="export_file_type" header-align="center" align="center" min-width="90" show-overflow-tooltip />

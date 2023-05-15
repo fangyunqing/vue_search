@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form ref="form" :model="value" :rules="rules" label-width="120px">
+    <el-form ref="form" :model="value" :rules="rules" label-width="150px">
       <el-row>
         <el-col :span="10">
           <el-form-item label="名称" prop="name">
@@ -32,8 +32,8 @@
           </el-form-item>
         </el-col>
         <el-col :span="10">
-          <el-form-item label="csv阀值" prop="want_csv">
-            <el-input v-model.number="value.want_csv" clearable type="number" />
+          <el-form-item label="文件缓存阀值" prop="want_csv">
+            <el-input v-model.number="value.file_cache_limit" clearable type="number" />
           </el-form-item>
         </el-col>
       </el-row>
@@ -123,7 +123,7 @@ export default {
           { pattern: specificationRegExp, message: '请输入合法字符', trigger: 'change' },
           { required: true, message: '请输入redis缓存时间', trigger: 'blur' }
         ],
-        want_csv: [
+        file_cache_limit: [
           { pattern: specificationRegExp, message: '请输入合法字符', trigger: 'change' },
           { required: true, message: '请输入csv阀值', trigger: 'blur' }
         ],

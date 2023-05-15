@@ -14,6 +14,17 @@
       <el-table-column label="名称" prop="name" header-align="center" align="center" min-width="80" show-overflow-tooltip />
       <el-table-column label="展示名" prop="display" header-align="center" align="center" min-width="80" show-overflow-tooltip />
       <el-table-column label="数据类型" prop="datatype" header-align="center" align="center" min-width="80" show-overflow-tooltip />
+      <el-table-column label="依赖字段" prop="result_fields" header-align="center" align="center" min-width="80" show-overflow-tooltip>
+        <template slot-scope="rowData">
+          <el-tag
+            v-for="item in rowData.row.result_fields"
+            :key="item"
+            style="margin-right: 2px;margin-bottom: 2px"
+          >
+            {{ item }}
+          </el-tag>
+        </template>
+      </el-table-column>
       <el-table-column label="py函数" header-align="center" align="center" min-width="40" show-overflow-tooltip>
         <template slot-scope="rowData">
           <el-button type="primary" size="mini" @click="look(rowData)">
@@ -21,9 +32,7 @@
           </el-button>
         </template>
       </el-table-column>
-      <el-table-column label="依赖字段" prop="result_fields" header-align="center" align="center" min-width="80" show-overflow-tooltip />
       <el-table-column label="排序号" prop="order" header-align="center" align="center" min-width="80" show-overflow-tooltip />
-      <el-table-column label="可见" prop="visible" header-align="center" align="center" min-width="80" show-overflow-tooltip />
       <el-table-column label="创建时间" prop="create_time" header-align="center" align="center" min-width="80" show-overflow-tooltip />
     </el-table>
 
@@ -31,7 +40,6 @@
       <common-editor
         :value="exp"
         language="python"
-        style="height: 50vh"
       />
     </el-dialog>
 
