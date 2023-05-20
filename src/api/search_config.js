@@ -37,11 +37,11 @@ export function datasourceModify(data) {
   })
 }
 
-export function getSearch(data) {
+export function getSearch(params) {
   return request({
     url: 'api/config/search',
     method: 'get',
-    param: data
+    params: params
   })
 }
 
@@ -100,5 +100,21 @@ export function searchUsable(search_id, version) {
   return request({
     url: 'api/config/search/usable/' + version + '/' + search_id,
     method: 'get'
+  })
+}
+
+export function searchParameter(params) {
+  return request({
+    url: 'api/config/search/parameter',
+    method: 'get',
+    params: params
+  })
+}
+
+export function modifySearchParameter(data) {
+  return request({
+    url: 'api/config/search/parameter/modify',
+    method: 'post',
+    data
   })
 }

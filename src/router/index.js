@@ -108,6 +108,18 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/parameter',
+    component: Layout,
+    children: [
+      {
+        path: 'config',
+        component: () => import('@/views/search_parameter/index'),
+        name: 'SearchParameter',
+        meta: { title: '查询参数', icon: 'search_parameter', noCache: true }
+      }
+    ]
+  },
+  {
     path: '/documentation',
     hidden: true,
     component: Layout,
