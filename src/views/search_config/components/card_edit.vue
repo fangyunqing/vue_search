@@ -159,6 +159,8 @@ export default {
         new_item.order = this._.max(orderList)
         if (new_item.order) {
           new_item.order = new_item.order + 1
+        } else {
+          new_item.order = 1
         }
       }
       this.wrapValueList.push({

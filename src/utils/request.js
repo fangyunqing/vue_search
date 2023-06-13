@@ -4,7 +4,7 @@ import store from '@/store'
 import { getToken } from '@/utils/auth'
 
 const tipUrlList = [/\/datasource\/disable\/\d+/, /\/datasource\/usable\/\d+/,
-  '/datasource/modify',
+  '/datasource/modify', '/search/delete', '/search/copy',
   '/datasource/add', '/search/add', '/search/modify', '/search/parameter/modify']
 // create an axios instance
 const service = axios.create({

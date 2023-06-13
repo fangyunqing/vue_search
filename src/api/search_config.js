@@ -66,11 +66,25 @@ export function getSearchSql(searchId) {
   })
 }
 
+export function getSearchSort(searchId) {
+  return request({
+    url: 'api/config/search/sort/' + searchId,
+    method: 'get'
+  })
+}
+
 export function searchAdd(data) {
   return request({
     url: 'api/config/search/add',
     method: 'post',
     data
+  })
+}
+
+export function searchCopy(searchId) {
+  return request({
+    url: 'api/config/search/copy/' + searchId,
+    method: 'get'
   })
 }
 
@@ -103,6 +117,13 @@ export function searchUsable(search_id, version) {
   })
 }
 
+export function searchDelete(search_id, version) {
+  return request({
+    url: 'api/config/search/delete/' + version + '/' + search_id,
+    method: 'get'
+  })
+}
+
 export function searchParameter(params) {
   return request({
     url: 'api/config/search/parameter',
@@ -118,3 +139,4 @@ export function modifySearchParameter(data) {
     data
   })
 }
+

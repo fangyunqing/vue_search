@@ -17,10 +17,10 @@
       <el-row>
         <el-col :span="8">
           <el-form-item>
-            <el-button type="primary" icon="el-icon-search">
+            <el-button type="primary" icon="el-icon-search" @click="search">
               查询
             </el-button>
-            <el-button type="danger" icon="el-icon-refresh">
+            <el-button type="danger" icon="el-icon-refresh" @click="reset">
               重置
             </el-button>
           </el-form-item>
@@ -68,7 +68,7 @@
           </el-tooltip>
         </template>
       </el-table-column>
-      <el-table-column fixed="right" align="center" label="" min-width="200" show-overflow-tooltip>
+      <el-table-column fixed="right" align="center" label="" min-width="250" show-overflow-tooltip>
         <template slot-scope="rowData">
           <el-button v-if="rowData.row.usable === '1'" type="primary" size="mini" @click="statusChange(rowData)">
             停用
@@ -78,6 +78,12 @@
           </el-button>
           <el-button type="primary" size="mini" @click="edit(rowData)">
             编辑
+          </el-button>
+          <el-button type="primary" size="mini" @click="copy(rowData)">
+            复制
+          </el-button>
+          <el-button type="danger" size="mini" @click="del(rowData)">
+            删除
           </el-button>
         </template>
       </el-table-column>
@@ -102,6 +108,9 @@
       <el-tab-pane label="字段" name="field">
         <search-field ref="searchField" />
       </el-tab-pane>
+      <el-tab-pane label="排序" name="sort">
+        <search-sort ref="searchField" />
+      </el-tab-pane>
     </el-tabs>
 
     <el-dialog v-if="dialogFormVisible" :visible.sync="dialogFormVisible" :title="dlgStatusMap[dlgStatus]" :close-on-click-modal="false" :modal-append-to-body="false">
@@ -113,16 +122,17 @@
 
 <script>
 
-import { getSearch, searchDisable, searchUsable } from '@/api/search_config'
+import { getSearch, searchDisable, searchUsable, searchCopy, searchDelete } from '@/api/search_config'
 import Pagination from '@/components/Pagination'
 import SearchCondition from '@/views/search_config/search_condition'
 import SearchSql from '@/views/search_config/search_sql'
 import SearchField from '@/views/search_config/search_field'
 import SearchStep from '@/views/search_config/search_step'
+import SearchSort from '@/views/search_config/search_sort'
 
 export default {
   name: 'SearchConfig',
-  components: { SearchStep, SearchField, SearchSql, SearchCondition, Pagination },
+  components: { SearchSort, SearchStep, SearchField, SearchSql, SearchCondition, Pagination },
   data() {
     return {
       /**
@@ -185,7 +195,7 @@ export default {
             this.$refs.dataTable.setCurrentRow(this.data.list[0])
           }
         }, 1.5 * 1000)
-      })
+      }).catch(error => this.fullscreenLoading = false)
     },
     currentChange(currentRow, oldRow) {
       this.$refs.searchCondition.setSearchId(currentRow.id)
@@ -210,6 +220,28 @@ export default {
         this.$refs.dlg.setFormData(rowData.row, this.dlgStatus)
       }, 100)
     },
+    copy(rowData) {
+      this.$confirm(`此操作将复制${rowData.row.display}[${rowData.row.name}]`, '是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        searchCopy(rowData.row.id).then(response => {
+          this.getList()
+        })
+      })
+    },
+    del(rowData) {
+      this.$confirm(`此操作将删除${rowData.row.display}[${rowData.row.name}]`, '是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        searchDelete(rowData.row.id, rowData.row.version).then(response => {
+          this.getList()
+        })
+      })
+    },
     success() {
       this.dialogFormVisible = false
       this.getList()
@@ -222,6 +254,17 @@ export default {
         searchDisable(rowData.row.id, rowData.row.version).then(res => {})
         this.getList()
       }
+    },
+    search() {
+      this.page.pageNumber = 1
+      this.getList()
+    },
+    reset() {
+      this.page.pageNumber = 1
+      for (const key in this.searchForm) {
+        this.searchForm[key] = ''
+      }
+      this.getList()
     }
   }
 }

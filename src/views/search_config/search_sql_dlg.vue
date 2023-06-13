@@ -128,16 +128,24 @@ export default {
           value: 'left'
         },
         {
-          key: 'right',
-          value: 'right'
-        },
-        {
           key: 'inner',
           value: 'inner'
         },
         {
           key: 'outer',
           value: 'outer'
+        },
+        {
+          key: 'semi',
+          value: 'semi'
+        },
+        {
+          key: 'anti',
+          value: 'anti'
+        },
+        {
+          key: 'cross',
+          value: 'cross'
         }
       ],
       /**

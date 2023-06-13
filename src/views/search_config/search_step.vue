@@ -11,6 +11,7 @@
       <el-step title="条件" />
       <el-step title="sql" />
       <el-step title="字段" />
+      <el-step title="排序" />
     </el-steps>
     <el-divider />
     <search-dlg
@@ -38,6 +39,14 @@
       v-show="showStatus[3]"
       v-model="row.searchField"
       :results="results"
+      :fields.sync="fields"
+      @preStep="preStep"
+      @nextStep="nextStep"
+    />
+    <search-sort-dlg
+      v-show="showStatus[4]"
+      v-model="row.searchSort"
+      :fields="fields"
       @preStep="preStep"
       @finish="finish"
     />
@@ -50,10 +59,11 @@ import SearchConditionDlg from '@/views/search_config/search_condition_dlg'
 import SearchSqlDlg from '@/views/search_config/search_sql_dlg'
 import SearchFieldDlg from '@/views/search_config/search_field_dlg'
 import { searchAdd, searchModify, searchInfo } from '@/api/search_config'
+import SearchSortDlg from '@/views/search_config/search_sort_dlg'
 
 export default {
   name: 'SearchStep',
-  components: { SearchFieldDlg, SearchSqlDlg, SearchConditionDlg, SearchDlg },
+  components: { SearchSortDlg, SearchFieldDlg, SearchSqlDlg, SearchConditionDlg, SearchDlg },
   data() {
     return {
       /**
@@ -71,7 +81,8 @@ export default {
         search: {},
         searchCondition: [],
         searchSql: [],
-        searchField: []
+        searchField: [],
+        searchSort: []
       },
       search: {
       },
@@ -82,7 +93,7 @@ export default {
       /**
        * 显示状态
        */
-      showStatus: [true, false, false, false],
+      showStatus: [true, false, false, false, false],
       /**
        * 条件
        */
@@ -90,7 +101,11 @@ export default {
       /**
        * 结果
        */
-      results: []
+      results: [],
+      /**
+       * 字段
+       */
+      fields: []
     }
   },
   methods: {
@@ -114,7 +129,8 @@ export default {
           search: this.resetSearch(),
           searchCondition: [],
           searchSql: [],
-          searchField: []
+          searchField: [],
+          searchSort: []
         }
       } else if (status === 'update') {
         this.fullscreenLoading = true
@@ -124,13 +140,14 @@ export default {
           res.data.searchCondition.forEach(item => this.row.searchCondition.push(item))
           res.data.searchSql.forEach(item => this.row.searchSql.push(item))
           res.data.searchField.forEach(item => this.row.searchField.push(item))
+          res.data.searchSort.forEach(item => this.row.searchSort.push(item))
         }).catch(error => this.fullscreenLoading = false)
       }
     },
     nextStep() {
       if (this.active < this.showStatus.length - 1) {
         this.active++
-        this.showStatus = [false, false, false, false]
+        this.showStatus = [false, false, false, false, false]
         this.showStatus[this.active] = true
       }
     },
@@ -140,7 +157,7 @@ export default {
     preStep() {
       if (this.active > 0) {
         this.active--
-        this.showStatus = [false, false, false, false]
+        this.showStatus = [false, false, false, false, false]
         this.showStatus[this.active] = true
       }
     },

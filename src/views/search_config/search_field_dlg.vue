@@ -17,12 +17,12 @@
     <card-edit
       v-model="value"
       pre-step-visible
-      finish-visible
+      next-step-visible
       order-visible
       :rules="rules"
       :reset-empty="resetEmpty()"
       @preStep="preStep"
-      @finish="finish"
+      @nextStep="nextStep"
       @change="valueChange"
     >
       <template slot="content" slot-scope="itemData">
@@ -110,6 +110,10 @@ export default {
     results: {
       type: Array,
       default: () => []
+    },
+    fields: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
@@ -170,8 +174,15 @@ export default {
     preStep() {
       this.$emit('preStep')
     },
-    finish() {
-      this.$emit('finish')
+    nextStep() {
+      this.fields.splice(0, this.results.length)
+      this.value.forEach(item => {
+        this.fields.push({
+          name: item.name,
+          display: item.display
+        })
+      })
+      this.$emit('nextStep')
     },
     resetEmpty() {
       return {
