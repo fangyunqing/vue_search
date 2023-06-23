@@ -19,6 +19,7 @@
       v-model="row.search"
       @commit="commit"
       @nextStep="nextStep"
+      @finish="finish"
     />
     <search-condition-dlg
       v-show="showStatus[1]"
@@ -26,6 +27,7 @@
       :conditions.sync="conditions"
       @preStep="preStep"
       @nextStep="nextStep"
+      @finish="finish"
     />
     <search-sql-dlg
       v-show="showStatus[2]"
@@ -34,6 +36,7 @@
       :results.sync="results"
       @preStep="preStep"
       @nextStep="nextStep"
+      @finish="finish"
     />
     <search-field-dlg
       v-show="showStatus[3]"
@@ -42,6 +45,7 @@
       :fields.sync="fields"
       @preStep="preStep"
       @nextStep="nextStep"
+      @finish="finish"
     />
     <search-sort-dlg
       v-show="showStatus[4]"

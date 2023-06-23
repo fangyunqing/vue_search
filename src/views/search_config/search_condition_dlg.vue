@@ -4,28 +4,30 @@
       v-model="value"
       pre-step-visible
       next-step-visible
+      finish-visible
       order-visible
       :reset-empty="resetEmpty()"
       :rules="rules"
       @preStep="preStep"
       @nextStep="nextStep"
+      @finish="finish"
     >
       <template slot="content" slot-scope="itemData">
         <el-row>
           <el-col :span="10">
-            <el-form-item label="名称" prop="name">
+            <el-form-item :label="$t('searchCondition.name')" prop="name">
               <el-input v-model.trim="itemData.item.name" clearable />
             </el-form-item>
           </el-col>
           <el-col :span="10">
-            <el-form-item label="展示名" prop="display">
+            <el-form-item :label="$t('searchCondition.display')" prop="display">
               <el-input v-model.trim="itemData.item.display" clearable />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="10">
-            <el-form-item label="数据类型" prop="datatype">
+            <el-form-item :label="$t('searchCondition.datatype')" prop="datatype">
               <el-select v-model.trim="itemData.item.datatype" placeholder="请选择">
                 <el-option
                   v-for="dt in datatypeConditionMap"
@@ -37,14 +39,14 @@
             </el-form-item>
           </el-col>
           <el-col :span="10">
-            <el-form-item label="排序号" prop="order">
+            <el-form-item :label="$t('searchCondition.order')" prop="order">
               <el-input v-model.number="itemData.item.order" type="number" clearable />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row v-show="itemData.item.datatype === 'list' || itemData.item.datatype === 'lookup' ">
           <el-col :span="20">
-            <el-form-item label="下拉框值" prop="list_values">
+            <el-form-item :label="$t('searchCondition.listValues')" prop="list_values">
               <common-editor
                 v-model.trim="itemData.item.list_values"
                 language="sql"
@@ -54,7 +56,7 @@
         </el-row>
         <el-row>
           <el-col :span="10">
-            <el-form-item label="模糊查询" prop="fuzzy_query">
+            <el-form-item :label="$t('searchCondition.fuzzyQuery')" prop="fuzzy_query">
               <el-switch
                 v-model.trim="itemData.item.fuzzy_query"
                 active-value="1"
@@ -65,7 +67,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="10">
-            <el-form-item label="条件类型" prop="datatype">
+            <el-form-item :label="$t('searchCondition.conditionType')" prop="condition_type">
               <el-select v-model.trim="itemData.item.condition_type" placeholder="请选择">
                 <el-option
                   v-for="dt in conditionTypeMap"
@@ -78,8 +80,19 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col v-show="itemData.item.datatype === 'date'" :span="10">
-            <el-form-item label="日期默认值" prop="date_default">
+          <el-col :span="10">
+            <el-form-item :label="$t('searchCondition.required')" prop="required">
+              <el-switch
+                v-model="itemData.item.required"
+                inactive-value="0"
+                active-value="1"
+                active-color="#13ce66"
+                inactive-color="#ff4949"
+              />
+            </el-form-item>
+          </el-col>
+          <el-col v-show="['date', 'datetime'].indexOf(itemData.item.datatype) > -1" :span="10">
+            <el-form-item :label="$t('searchCondition.dateDefault')" prop="date_default">
               <el-select v-model.trim="itemData.item.date_default" placeholder="请选择">
                 <el-option
                   v-for="dt in dateShowMap"
@@ -144,6 +157,10 @@ export default {
         fuzzy_query: [
           { pattern: specificationRegExp, message: '请输入合法字符', trigger: 'change' },
           { required: true, message: '请选择是否支持模糊查询', trigger: 'blur' }
+        ],
+        required: [
+          { pattern: specificationRegExp, message: '请输入合法字符', trigger: 'change' },
+          { required: true, message: '请选择是否必填', trigger: 'blur' }
         ]
       },
       /**
@@ -165,6 +182,10 @@ export default {
         {
           key: 'date',
           value: '日期'
+        },
+        {
+          key: 'datetime',
+          value: '日期时间'
         },
         {
           key: 'list',
@@ -239,8 +260,12 @@ export default {
     resetEmpty() {
       return {
         fuzzy_query: '0',
-        condition_type: 'normal'
+        condition_type: 'normal',
+        required: '0'
       }
+    },
+    finish() {
+      this.$emit('finish')
     }
   }
 }

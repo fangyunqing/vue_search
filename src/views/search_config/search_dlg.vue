@@ -84,7 +84,9 @@
     </el-form>
     <div style="margin-top: 5px; text-align: center">
       <el-button type="primary" @click="nextStep">下一步</el-button>
+      <el-button type="primary" @click="finish">完成</el-button>
     </div>
+
   </div>
 
 </template>
@@ -166,6 +168,9 @@ export default {
           this.$emit('nextStep')
         }
       })
+    },
+    finish() {
+      this.$emit('finish')
     }
   }
 }

@@ -18,12 +18,14 @@
       v-model="value"
       pre-step-visible
       next-step-visible
+      finish-visible
       order-visible
       :rules="rules"
       :reset-empty="resetEmpty()"
       @preStep="preStep"
       @nextStep="nextStep"
       @change="valueChange"
+      @finish="finish"
     >
       <template slot="content" slot-scope="itemData">
         <el-row>
@@ -194,6 +196,9 @@ export default {
       wrapValueList.forEach(wv => {
         wv.item.result_fields.forEach(f => this.useField.push(f))
       })
+    },
+    finish() {
+      this.$emit('finish')
     }
   }
 }

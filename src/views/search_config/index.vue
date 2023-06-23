@@ -109,7 +109,7 @@
         <search-field ref="searchField" />
       </el-tab-pane>
       <el-tab-pane label="排序" name="sort">
-        <search-sort ref="searchField" />
+        <search-sort ref="searchSort" />
       </el-tab-pane>
     </el-tabs>
 
@@ -201,6 +201,7 @@ export default {
       this.$refs.searchCondition.setSearchId(currentRow.id)
       this.$refs.searchSql.setSearchId(currentRow.id)
       this.$refs.searchField.setSearchId(currentRow.id)
+      this.$refs.searchSort.setSearchId(currentRow.id)
     },
     add() {
       this.dlgStatus = 'create'

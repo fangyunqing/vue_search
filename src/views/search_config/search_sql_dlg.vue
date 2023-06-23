@@ -16,9 +16,11 @@
       v-model="value"
       pre-step-visible
       next-step-visible
+      finish-visible
       :rules="rules"
       @preStep="preStep"
       @nextStep="nextStep"
+      @finish="finish"
     >
       <template slot="title" slot-scope="itemData">
         <div style="margin-top: 5px">
@@ -231,6 +233,9 @@ export default {
         } catch (e) {
         }
       }
+    },
+    finish() {
+      this.$emit('finish')
     }
   }
 }
