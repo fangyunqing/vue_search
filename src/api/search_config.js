@@ -140,3 +140,32 @@ export function modifySearchParameter(data) {
   })
 }
 
+export function searchFunction(params) {
+  return request({
+    url: 'api/config/function',
+    method: 'get',
+    params: params
+  })
+}
+
+export function searchFunctionById(function_id) {
+  return request({
+    url: 'api/config/function/' + function_id,
+    method: 'get'
+  })
+}
+
+export function saveFunction(data) {
+  return request({
+    url: 'api/config/function/save',
+    method: 'post',
+    data
+  })
+}
+
+export function deleteFunction(function_id) {
+  return request({
+    url: 'api/config/function/delete/' + function_id,
+    method: 'get'
+  })
+}

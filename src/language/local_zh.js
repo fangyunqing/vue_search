@@ -25,5 +25,23 @@ module.exports = {
     listValues: '下拉框值',
     createTime: '创建时间',
     required: '必填'
+  },
+  searchFunction: {
+    id: 'id',
+    name: '名称',
+    display: '展示名',
+    value: '函数内容',
+    createTime: '创建时间'
+  },
+  searchField: {
+    id: 'id',
+    name: '名称',
+    display: '展示名',
+    resultFields: '依赖字段',
+    rule: 'py函数',
+    datatype: '数据类型',
+    order: '排序号',
+    builtinFunction: '内置函数',
+    createTime: '创建时间'
   }
 }

@@ -91,7 +91,7 @@ export const constantRoutes = [
         path: 'config',
         component: () => import('@/views/database_config/index'),
         name: 'DatabaseConfig',
-        meta: { title: '数据库配置', icon: 'database', noCache: true }
+        meta: { title: '数据库配置', icon: 'database', noCache: false }
       }
     ]
   },
@@ -103,7 +103,7 @@ export const constantRoutes = [
         path: 'config',
         component: () => import('@/views/search_config/index'),
         name: 'SearchConfig',
-        meta: { title: '查询配置', icon: 'search_service', noCache: true }
+        meta: { title: '查询配置', icon: 'search_service', noCache: false }
       }
     ]
   },
@@ -115,7 +115,19 @@ export const constantRoutes = [
         path: 'config',
         component: () => import('@/views/search_parameter/index'),
         name: 'SearchParameter',
-        meta: { title: '查询参数', icon: 'search_parameter', noCache: true }
+        meta: { title: '查询参数', icon: 'search_parameter', noCache: false }
+      }
+    ]
+  },
+  {
+    path: '/function',
+    component: Layout,
+    children: [
+      {
+        path: 'function',
+        component: () => import('@/views/search_function/index'),
+        name: 'SearchFunction',
+        meta: { title: '函数配置', icon: 'search_function', noCache: false }
       }
     ]
   },

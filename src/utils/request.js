@@ -5,7 +5,8 @@ import { getToken } from '@/utils/auth'
 
 const tipUrlList = [/\/datasource\/disable\/\d+/, /\/datasource\/usable\/\d+/,
   '/datasource/modify', '/search/delete', '/search/copy',
-  '/datasource/add', '/search/add', '/search/modify', '/search/parameter/modify']
+  '/datasource/add', '/search/add', '/search/modify', '/search/parameter/modify',
+  'config/function/save', 'config/function/delete']
 // create an axios instance
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url

@@ -30,19 +30,19 @@
       <template slot="content" slot-scope="itemData">
         <el-row>
           <el-col :span="10">
-            <el-form-item label="名称" prop="name">
+            <el-form-item :label="$t('searchField.name')" prop="name">
               <el-input v-model.trim="itemData.item.name" clearable />
             </el-form-item>
           </el-col>
           <el-col :span="10">
-            <el-form-item label="展示名" prop="display">
+            <el-form-item :label="$t('searchField.display')" prop="display">
               <el-input v-model.trim="itemData.item.display" clearable />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="20">
-            <el-form-item label="依赖字段" prop="result_fields">
+            <el-form-item :label="$t('searchField.resultFields')" prop="result_fields">
               <el-select
                 v-model.trim="itemData.item.result_fields"
                 multiple
@@ -64,7 +64,7 @@
         </el-row>
         <el-row>
           <el-col :span="20">
-            <el-form-item label="py函数" prop="rule">
+            <el-form-item :label="$t('searchField.rule')" prop="rule">
               <common-editor
                 v-model.trim="itemData.item.rule"
                 language="python"
@@ -74,8 +74,8 @@
         </el-row>
         <el-row>
           <el-col :span="10">
-            <el-form-item label="数据类型" prop="datatype">
-              <el-select v-model.trim="itemData.item.datatype" placeholder="请选择">
+            <el-form-item :label="$t('searchField.datatype')" prop="datatype">
+              <el-select v-model.trim="itemData.item.datatype" placeholder="请选择" style="width:100%">
                 <el-option
                   v-for="dt in datatypeConditionMap"
                   :key="dt.key"
@@ -86,7 +86,28 @@
             </el-form-item>
           </el-col>
           <el-col :span="10">
-            <el-form-item label="排序号" prop="order">
+            <el-form-item :label="$t('searchField.builtinFunction')" prop="builtin_function">
+              <el-select
+                v-model.trim="itemData.item.builtin_function"
+                filterable
+                default-first-option
+                placeholder="请选择"
+                style="width:100%"
+                clearable
+              >
+                <el-option
+                  v-for="dt in functionList"
+                  :key="dt.name"
+                  :label="dt.name"
+                  :value="dt.name"
+                />
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="10">
+            <el-form-item :label="$t('searchField.order')" prop="order">
               <el-input v-model.number="itemData.item.order" type="number" clearable />
             </el-form-item>
           </el-col>
@@ -100,6 +121,7 @@
 import CardEdit from '@/views/search_config/components/card_edit'
 import CommonEditor from '@/components/CommonEditor'
 import { specificationRegExp } from '@/utils/validate'
+import { searchFunction } from '@/api/search_config'
 
 export default {
   name: 'SearchFieldDlg',
@@ -169,8 +191,17 @@ export default {
       /**
        * 使用过的字段
        */
-      useField: []
+      useField: [],
+      /**
+       * 函数列表
+       */
+      functionList: []
     }
+  },
+  created() {
+    searchFunction().then(response => {
+      this.functionList = response.data
+    })
   },
   methods: {
     preStep() {
