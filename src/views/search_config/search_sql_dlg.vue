@@ -130,6 +130,10 @@ export default {
           value: 'left'
         },
         {
+          key: 'left_condition_inner',
+          value: 'left_condition_inner'
+        },
+        {
           key: 'inner',
           value: 'inner'
         },
